@@ -14,11 +14,11 @@
     <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet'
           type='text/css'>
 
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/theme/default.css" id="theme">
+    <link rel="stylesheet" href="../lib/reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="../lib/reveal.js/css/theme/default.css" id="theme">
 
     <!-- For syntax highlighting -->
-    <link rel="stylesheet" href="lib/css/solarized_light.css">
+    <link rel="stylesheet" href="../lib/css/solarized_light.css">
 
     <script>
         // If the query includes 'print-pdf' we'll use the PDF print sheet
@@ -26,7 +26,7 @@
     </script>
 
     <!--[if lt IE 9]>
-    <script src="lib/js/html5shiv.js"></script>
+    <script src="../lib/reveal.js/lib/js/html5shiv.js"></script>
     <![endif]-->
 </head>
 
@@ -34,47 +34,47 @@
 
 <div class="reveal">
 
-<!-- Used to fade in a background when a specific slide state is reached -->
-<div class="state-background"></div>
+    <!-- Used to fade in a background when a specific slide state is reached -->
+    <div class="state-background"></div>
 
-<!-- Any section element inside of this container is displayed as a slide -->
-<div class="slides">
-<section>
-    <h1>Varnish at VGnett</h1>
-    <h4>Online since 1995, Varnish since version 0.8</h4>
-</section>
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+        <section>
+            <h1>Varnish at VGnett</h1>
+            <h4>Online since 1995, Varnish since version 0.8</h4>
+        </section>
 
-<section>
-    <section>
-        <h2>Some VCL</h2>
+        <section>
+            <section>
+                <h2>Some VCL</h2>
         <pre><code>if (req.url ~ "vg.no$") {
-   set backend="foobar";
-}</code></pre>
+            set backend="foobar";
+            }</code></pre>
 
-        <aside class="notes">
-            Oh hey, these are some notes. They'll be hidden in your presentation, but you can see them if you run the
-            speaker notes server.
-        </aside>
-    </section>
-    <section>
-        <h3></h3>
-        <blockquote>
-            It was created at Facebook. Phabricator is also used at many other companies such as Airtime,
-            Asana, Dropbox, deviantART, MemSQL, Path, Quora, Disqus and <a href="https://secure.phabricator.com/w/usage/companies/">more</a>.
-        </blockquote>
-    </section>
-    <section>
-        <h2>Bots go there -></h2>
-        <p>Be able to redirect traffic out of the hot set to another backend.</p>
-    </section>
-    <section>
-        <h3>vcl_recv</h3>
+                <aside class="notes">
+                    Oh hey, these are some notes. They'll be hidden in your presentation, but you can see them if you run the
+                    speaker notes server.
+                </aside>
+            </section>
+            <section>
+                <h3></h3>
+                <blockquote>
+                    It was created at Facebook. Phabricator is also used at many other companies such as Airtime,
+                    Asana, Dropbox, deviantART, MemSQL, Path, Quora, Disqus and <a href="https://secure.phabricator.com/w/usage/companies/">more</a>.
+                </blockquote>
+            </section>
+            <section>
+                <h2>Bots go there -></h2>
+                <p>Be able to redirect traffic out of the hot set to another backend.</p>
+            </section>
+            <section>
+                <h3>vcl_recv</h3>
         <pre><code contenteditable="">if (req.url ~ "artid=") {
-    set req.http.X-VG-ArtID=regsub(req.url, "^.*artid=(\d+).*$", "\1");
-    if (std.integer(req.http.X-VG-ArtID,0) > std.integer(var.global_get("maxartid"),0)) {
-        var.global_set("maxartid",req.http.X-VG-ArtID);
-    }
-    set req.http.X-VG-MaxArtID = var.global_get("maxartid");
+            set req.http.X-VG-ArtID=regsub(req.url, "^.*artid=(\d+).*$", "\1");
+            if (std.integer(req.http.X-VG-ArtID,0) > std.integer(var.global_get("maxartid"),0)) {
+            var.global_set("maxartid",req.http.X-VG-ArtID);
+            }
+            set req.http.X-VG-MaxArtID = var.global_get("maxartid");
             if (std.integer(req.http.X-VG-ArtID,0) < (std.integer(req.http.X-VG-MaxArtID,60000000) - 250)) {
             # This is an old article -> El crapo backend
             set req.http.X-VG-OldArtID = "true";
@@ -86,28 +86,28 @@
             }
 
         </code></pre>
-    </section>
-</section>
-</div>
+            </section>
+        </section>
+    </div>
 
-<!-- The navigational controls UI -->
-<aside class="controls">
-    <a class="left" href="#">&#x25C4;</a>
-    <a class="right" href="#">&#x25BA;</a>
-    <a class="up" href="#">&#x25B2;</a>
-    <a class="down" href="#">&#x25BC;</a>
-</aside>
+    <!-- The navigational controls UI -->
+    <aside class="controls">
+        <a class="left" href="#">&#x25C4;</a>
+        <a class="right" href="#">&#x25BA;</a>
+        <a class="up" href="#">&#x25B2;</a>
+        <a class="down" href="#">&#x25BC;</a>
+    </aside>
 
-<!-- Presentation progress bar -->
-<div class="progress"><span></span></div>
+    <!-- Presentation progress bar -->
+    <div class="progress"><span></span></div>
 
 </div>
 <a class="fork-reveal" href="http://www.vg.no">
     <img style="position: absolute; bottom: 0; left: 0; border: 0; width:200px"
          src="http://www.userlogos.org/files/logos/nox_777/VGnett.png"
          alt="Vgnett"></a>
-<script src="lib/js/head.min.js"></script>
-<script src="js/reveal.min.js"></script>
+<script src="../lib/reveal.js/lib/js/head.min.js"></script>
+<script src="../lib/reveal.js/js/reveal.min.js"></script>
 
 <script>
 
